@@ -1,5 +1,5 @@
 <div class="wrapper d-flex align-items-stretch">
-    @include('layout.sidemenu')
+<x-header />
     <div id="content" class="p-4 p-md-5 pt-5">
         <h1>Installation </h1>
         <p>Before creating your first Laravel project, make sure that your local machine has PHP and Composer installed.<br>After you have installed PHP and Composer, you may create a new Laravel project via Composer's <code>create-project</code> command:</p>
@@ -18,7 +18,7 @@
         </code>
     </div>
 </div>
-@include('layout.footerscript')
+<x-footer_files />
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <div class="wrapper d-flex align-items-stretch">
-    @include('layout.sidemenu')
+<x-header />
     <div id="content" class="p-4 p-md-5 pt-5">
         <div id="block">
             <h1>Controller</h1>
@@ -18,4 +18,4 @@
         </div>
     </div>
 </div>
-@include('layout.footerscript')
+<x-footer_files />

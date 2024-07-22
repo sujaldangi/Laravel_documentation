@@ -33,14 +33,13 @@
             </button>
         </div>
         <div class="p-4 pt-5">
-            <h1><a href="/" class="logo">Laravel</a></h1>
+            <h1><a href="/" class="logo">{{$title}}</a></h1>
             <ul class="list-unstyled components mb-5">
                 <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle gold-link">Home</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle gold-link">CRUD</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li><a class="gold-link" href="#">Home 1</a></li>
-                        <li><a class="gold-link" href="#">Home 2</a></li>
-                        <li><a class="gold-link" href="#">Home 3</a></li>
+                        <li><a class="gold-link" href="/crud">View</a></li>
+                        <li><a class="gold-link" href="/crud/create">Add</a></li>
                     </ul>
                 </li>
                 <li><a class="gold-link" href="/intro">Introduction</a></li>
@@ -50,6 +49,7 @@
                 <li><a class="gold-link" href="/controller">Controller</a></li>
                 <li><a class="gold-link" href="/component">Component</a></li>
                 <li><a class="gold-link" href="/blade-template">Blade Template</a></li>
+                <li><a class="gold-link" href="/CrudDoc">Crud document</a></li>
             </ul>
             <div class="footer">
                 <p>Copyright &copy;<script>

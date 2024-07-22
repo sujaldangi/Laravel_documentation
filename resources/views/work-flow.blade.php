@@ -1,5 +1,5 @@
 <div class="wrapper d-flex align-items-stretch">
-    @include('layout.sidemenu')
+    <x-header />
     <div id="content" class="p-4 p-md-5 pt-5">
         <div id="block">
             <h1>Laravel Request Lifecycle</h1>
@@ -26,10 +26,10 @@
             <h3>Router:</h3>
             <p>Now request will be dispatched by the Router and it will end up with the views as shown below:<br><br>Router will direct the HTTP Request to a Controller or return a view or responses directly by omitting the controller. These routes will be placed in <code>app/routes.php</code>.<br><br>Controller <code>app/controllers/</code> performs specific actions and sends data to a View.<br><br>View app/views/ formats the data appropriately, providing the HTTP Response.</p>
         </div>
-        
+
     </div>
 </div>
-@include('layout.footerscript')
+<x-footer_files />
 </body>
 
 </html>
