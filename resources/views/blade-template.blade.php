@@ -11,7 +11,7 @@
         <code class="code_blocks">Route::get('/', function () {<br> &nbspreturn view('welcome', ['name' => 'Samantha']);
 <br>});</code>
         <p>You may display the contents of the name variable like so:</p>
-        <code class="code_blocks">Hello, &#10101;&#10101; $name &#10101;&#10101;.</code>
+        <code class="code_blocks">Hello, &#123&#123 $name &#125&#125 .</code>
     </div>
     </div>
 </div>

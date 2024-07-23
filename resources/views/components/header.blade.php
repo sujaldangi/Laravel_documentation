@@ -42,14 +42,14 @@
                         <li><a class="gold-link" href="/crud/create">Add</a></li>
                     </ul>
                 </li>
-                <li><a class="gold-link" href="/intro">Introduction</a></li>
-                <li><a class="gold-link" href="/installation">Installation</a></li>
-                <li><a class="gold-link" href="/file-structure">File Structure</a></li>
-                <li><a class="gold-link" href="/work-flow">Work Flow</a></li>
-                <li><a class="gold-link" href="/controller">Controller</a></li>
-                <li><a class="gold-link" href="/component">Component</a></li>
-                <li><a class="gold-link" href="/blade-template">Blade Template</a></li>
-                <li><a class="gold-link" href="/CrudDoc">Crud document</a></li>
+                <li><a class="gold-link" href="/laravel/intro">Introduction</a></li>
+                <li><a class="gold-link" href="/laravel/installation">Installation</a></li>
+                <li><a class="gold-link" href="/laravel/file-structure">File Structure</a></li>
+                <li><a class="gold-link" href="/laravel/work-flow">Work Flow</a></li>
+                <li><a class="gold-link" href="/laravel/controller">Controller</a></li>
+                <li><a class="gold-link" href="/laravel/component">Component</a></li>
+                <li><a class="gold-link" href="/laravel/blade-template">Blade Template</a></li>
+                <li><a class="gold-link" href="/laravel/CrudDoc">Crud document</a></li>
             </ul>
             <div class="footer">
                 <p>Copyright &copy;<script>

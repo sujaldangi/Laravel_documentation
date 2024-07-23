@@ -1,21 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\welcome_controller;
-use App\Http\Controllers\file_structure_controller;
-use App\Http\Controllers\installation_controller;
-use App\Http\Controllers\intro_controller;
-use App\Http\Controllers\workflow_controller;
-use App\Http\Controllers\controller_controller;
-use App\Http\Controllers\blade_template_controller;
-use App\Http\Controllers\component_controller;
+use App\Http\Controllers\view_controller;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\crud_doc;
+use App\Http\Controllers\LaravelMailSender;
 
 /*
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -26,33 +19,38 @@ use App\Http\Controllers\crud_doc;
 //     return view('welcome');
 // });
 
-
+// route grouping
+// route prefix
+// route naming
+// image uploading
 // controllers
-Route::get('/',[welcome_controller::class,'show']);
-Route::get('file-structure',[file_structure_controller::class,'show']);
-Route::get('installation',[installation_controller::class,'show']);
-Route::get('intro',[intro_controller::class,'show']);
-Route::get('work-flow',[workflow_controller::class,'show']);
-Route::get('controller',[controller_controller::class,'show']);
-Route::get('blade-template',[blade_template_controller::class,'show']);
-Route::get('component',[component_controller::class,'show']);
-Route::get('CrudDoc',[crud_doc::class,'show']);
+Route::get('/', [view_controller::class, 'show'])->defaults('viewName', 'welcome');
+Route::group(['prefix'=>'/laravel'],function (){
+Route::get('file-structure', [view_controller::class, 'show'])->defaults('viewName', 'file-structure');
+Route::get('installation', [view_controller::class, 'show'])->defaults('viewName', 'installation');
+Route::get('intro', [view_controller::class, 'show'])->defaults('viewName', 'intro');
+Route::get('work-flow', [view_controller::class, 'show'])->defaults('viewName', 'work-flow');
+Route::get('controller', [view_controller::class, 'show'])->defaults('viewName', 'controller');
+Route::get('blade-template', [view_controller::class, 'show'])->defaults('viewName', 'blade-template');
+Route::get('component', [view_controller::class, 'show'])->defaults('viewName', 'component');
+Route::get('CrudDoc', [view_controller::class, 'show'])->defaults('viewName', 'CrudDocumentation');
+Route::get('mail',[LaravelMailSender::class,'send']);
+});
 
 
-
-// returns the home page with all posts
+// returns the home page with all Employee
 Route::get('/crud', EmployeeController::class .'@index')->name('Employees.index');
-// returns the form for adding a post
+// returns the form for adding a Employee
 Route::get('/crud/create', EmployeeController::class . '@create')->name('Employees.create');
 // adds a post to the database
 Route::post('/crud', EmployeeController::class .'@store')->name('Employees.store');
-// returns a page that shows a full post
+// returns a page that shows a full Employee
 Route::get('/crud/{post}', EmployeeController::class .'@show')->name('Employees.show');
-// returns the form for editing a post
+// returns the form for editing a Employee
 Route::get('/crud/{post}/edit', EmployeeController::class .'@edit')->name('Employees.edit');
-// updates a post
+// updates a Employee
 Route::put('/crud/{post}', EmployeeController::class .'@update')->name('Employees.update');
-// deletes a post
+// deletes a Employee
 Route::delete('/crud/{post}', EmployeeController::class .'@destroy')->name('Employees.destroy');
 
 

@@ -22,6 +22,7 @@ class EmployeeController extends Controller
    */
   public function store(Request $request)
   {
+    // dd($request);
     $request->validate([
       'id' => 'required',
       'name' => 'required|max:255',
@@ -70,7 +71,7 @@ class EmployeeController extends Controller
   }
   // routes functions
   /**
-   * Show the form for creating a new post.
+   * Show the form for creating a new Employee.
    *
    * @return \Illuminate\Http\Response
    */
@@ -90,7 +91,7 @@ class EmployeeController extends Controller
     return view('Employees.show', compact('Employees'));
   }
   /**
-   * Show the form for editing the specified post.
+   * Show the form for editing the specified Employee.
    *
    * @param  int  $id
    * @return \Illuminate\Http\Response
