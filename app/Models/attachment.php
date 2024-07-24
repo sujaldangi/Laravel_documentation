@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class attachment extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'mail',
-        'age',
-        'role',
-        'salary',
-        'image',
-      ];
+        'storage_path',
+        'image_path',
+    ];
+    protected $table = 'attachment';
 }

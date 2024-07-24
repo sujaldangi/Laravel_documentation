@@ -9,16 +9,18 @@ use Illuminate\Support\Facades\Mail;
 
 class LaravelMailSender extends Controller
 {
-    public function send()
+
+    public function send($to)
     {
         $data = ['name' => 'sujal', 'data' => 'hello sujal'];
-        $user['to'] = 'sujalinfostride@gmail.com';
+        $user['to'] = $to;
 
-        Mail::send('mail', $data, function ($message) use ($user) {
+        $is_mail_sent = Mail::send('mail', $data, function ($message) use ($user) {
             $message->to($user['to']);
             $message->subject("hello dev");
         });
 
+        dd($is_mail_sent);
         
     }
 }

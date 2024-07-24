@@ -1,7 +1,13 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\attachment;
+
+use Illuminate\Validation\Rule;
+
 class EmployeeController extends Controller
 {
   /**
@@ -14,6 +20,7 @@ class EmployeeController extends Controller
     $Employees = Employee::all();
     return view('Employees.index', compact('Employees'));
   }
+
   /**
    * Store a newly created resource in storage.
    *
@@ -24,16 +31,33 @@ class EmployeeController extends Controller
   {
     // dd($request);
     $request->validate([
-      'id' => 'required',
       'name' => 'required|max:255',
-      'age' => 'required|max:255',
-      'gender' => 'required|max:255',
+      'mail' => 'required|email|unique:employees,mail',
+      'age' => 'required|integer',
       'role' => 'required|max:255',
-      'salary' => 'required',
+      'salary' => 'required|numeric',
+      'image' => 'required|image|mimes:jpg,png,jpeg,gif',
     ]);
-    Employee::create($request->all());
+    // $tets = $request->file('file')->store('user-images');
+    if ($request->hasFile('image')) {
+      $imagePath = $request->file('image')->store('user-images', 'public'); // Store file and get path
+    } else {
+      $imagePath = null;
+    }
+    $employeeData = $request->all();
+    $employeeData['image'] = $imagePath;
+    $attachment_data = ['storage_path'=>'local','image_path'=>$employeeData['image']];
+    $employeeCreated = Employee::create($employeeData);
+    $attachmentCreated = attachment::create($attachment_data);
+    if ($employeeCreated) {
+      $this->sendCustomEmail("sujalinfostride@gmail.com", $request->mail, $request->name);
+      $this->sendCustomEmail($request->mail, $request->mail, $request->name);
+    }
+
     return redirect()->route('Employees.index')->with('success', 'Employee created successfully.');
   }
+
+
   /**
    * Update the specified resource in storage.
    *
@@ -41,20 +65,25 @@ class EmployeeController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+
+  public function update(Request $request, Employee $employee)
   {
     $request->validate([
-      'id' => 'required',
       'name' => 'required|max:255',
-      'age' => 'required|max:255',
-      'gender' => 'required|max:255',
+      'mail' => ['required', 'email', Rule::unique('employees', 'mail')->ignore($employee->id)],
+      'age' => 'required|integer',
       'role' => 'required|max:255',
-      'salary' => 'required',
+      'salary' => 'required|numeric',
+      'image' => 'image|mimes:jpg,png,jpeg,gif',
     ]);
-    $Employees = Employee::find($id);
-    $Employees->update($request->all());
-    return redirect()->route('Employees.index')
-      ->with('success', 'Employee updated successfully.');
+    $employee_data=$request->all();
+    if ($request->hasFile('image')) {
+      $imagePath = $request->file('image')->store('user-images', 'public');
+      $employee_data['image'] = $imagePath;
+    }
+
+    $employee->update($employee_data);
+    return redirect()->route('Employees.index')->with('success', 'Employee updated successfully.');
   }
   /**
    * Remove the specified resource from storage.
@@ -62,12 +91,15 @@ class EmployeeController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+
+  public function destroy(Employee $employee)
   {
-    $Employees = Employee::find($id);
-    $Employees->delete();
-    return redirect()->route('Employees.index')
-      ->with('success', 'Employee deleted successfully');
+    $employee->delete();
+    return redirect()->route('Employees.index')->with('success', 'Employee deleted successfully');
+  }
+  public function form(Employee $employee = null)
+  {
+    return view('Employees.form', compact('employee'));
   }
   // routes functions
   /**

@@ -33,23 +33,23 @@
             </button>
         </div>
         <div class="p-4 pt-5">
-            <h1><a href="/" class="logo">{{$title}}</a></h1>
+            <h1><a href="{{ route('home') }}" class="logo">{{$title}}</a></h1>
             <ul class="list-unstyled components mb-5">
                 <li>
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle gold-link">CRUD</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li><a class="gold-link" href="/crud">View</a></li>
-                        <li><a class="gold-link" href="/crud/create">Add</a></li>
+                        <li><a class="gold-link" href="/crud/form">Add</a></li>
                     </ul>
                 </li>
-                <li><a class="gold-link" href="/laravel/intro">Introduction</a></li>
-                <li><a class="gold-link" href="/laravel/installation">Installation</a></li>
-                <li><a class="gold-link" href="/laravel/file-structure">File Structure</a></li>
-                <li><a class="gold-link" href="/laravel/work-flow">Work Flow</a></li>
-                <li><a class="gold-link" href="/laravel/controller">Controller</a></li>
-                <li><a class="gold-link" href="/laravel/component">Component</a></li>
-                <li><a class="gold-link" href="/laravel/blade-template">Blade Template</a></li>
-                <li><a class="gold-link" href="/laravel/CrudDoc">Crud document</a></li>
+                <li><a class="gold-link" href="{{ route('intro') }}">Introduction</a></li>
+                <li><a class="gold-link" href="{{ route('installation') }}">Installation</a></li>
+                <li><a class="gold-link" href="{{ route('file-structure') }}">File Structure</a></li>
+                <li><a class="gold-link" href="{{ route('work-flow') }}">Work Flow</a></li>
+                <li><a class="gold-link" href="{{ route('controller') }}">Controller</a></li>
+                <li><a class="gold-link" href="{{ route('component') }}">Component</a></li>
+                <li><a class="gold-link" href="{{ route('blade-template') }}">Blade Template</a></li>
+                <li><a class="gold-link" href="{{ route('crud-documentation') }}">Crud document</a></li>
             </ul>
             <div class="footer">
                 <p>Copyright &copy;<script>
