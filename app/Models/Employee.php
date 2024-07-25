@@ -14,6 +14,6 @@ class Employee extends Model
         'age',
         'role',
         'salary',
-        'image',
+        'image_id',
       ];
 }

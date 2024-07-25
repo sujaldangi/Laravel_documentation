@@ -20,7 +20,8 @@ class CreateEmployeeTable extends Migration
             $table->integer('age');
             $table->string('role');
             $table->string('salary');
-            $table->string('image');
+            $table->unsignedBigInteger('image_id')->nullable();
+            $table->foreign('image_id')->references('id')->on('attachment')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

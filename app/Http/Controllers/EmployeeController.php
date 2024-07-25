@@ -29,30 +29,28 @@ class EmployeeController extends Controller
    */
   public function store(Request $request)
   {
-    // dd($request);
     $request->validate([
       'name' => 'required|max:255',
       'mail' => 'required|email|unique:employees,mail',
       'age' => 'required|integer',
       'role' => 'required|max:255',
       'salary' => 'required|numeric',
-      'image' => 'required|image|mimes:jpg,png,jpeg,gif',
+      'image_id' => 'required|image|mimes:jpg,png,jpeg,gif',
     ]);
-    // $tets = $request->file('file')->store('user-images');
-    if ($request->hasFile('image')) {
-      $imagePath = $request->file('image')->store('user-images', 'public'); // Store file and get path
+    if ($request->hasFile('image_id')) {
+      $imagePath = $request->file('image_id')->store('user-images', 'public'); // Store file and get path
     } else {
       $imagePath = null;
     }
     $employeeData = $request->all();
-    $employeeData['image'] = $imagePath;
-    $attachment_data = ['storage_path'=>'local','image_path'=>$employeeData['image']];
-    $employeeCreated = Employee::create($employeeData);
+    $attachment_data = ['storage_path'=>'local','image_path'=>$imagePath];
     $attachmentCreated = attachment::create($attachment_data);
-    if ($employeeCreated) {
-      $this->sendCustomEmail("sujalinfostride@gmail.com", $request->mail, $request->name);
-      $this->sendCustomEmail($request->mail, $request->mail, $request->name);
-    }
+    $employeeData['image_id'] = $attachmentCreated->id;
+    $employeeCreated = Employee::create($employeeData);
+    // if ($employeeCreated) {
+    //   $this->sendCustomEmail("sujalinfostride@gmail.com", $request->mail, $request->name);
+    //   $this->sendCustomEmail($request->mail, $request->mail, $request->name);
+    // }
 
     return redirect()->route('Employees.index')->with('success', 'Employee created successfully.');
   }
@@ -74,12 +72,16 @@ class EmployeeController extends Controller
       'age' => 'required|integer',
       'role' => 'required|max:255',
       'salary' => 'required|numeric',
-      'image' => 'image|mimes:jpg,png,jpeg,gif',
+      'image_id' => 'image|mimes:jpg,png,jpeg,gif',
     ]);
     $employee_data=$request->all();
-    if ($request->hasFile('image')) {
-      $imagePath = $request->file('image')->store('user-images', 'public');
-      $employee_data['image'] = $imagePath;
+    if ($request->hasFile('image_id')) {
+      
+      $imagePath = $request->file('image_id')->store('user-images', 'public');
+      $attachment_data = ['storage_path'=>'local','image_path'=>$imagePath];
+      $attachmentCreated = attachment::create($attachment_data);
+
+      $employee_data['image_id'] =$attachmentCreated->id;
     }
 
     $employee->update($employee_data);

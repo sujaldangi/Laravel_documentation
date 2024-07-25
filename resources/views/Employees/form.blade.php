@@ -36,8 +36,8 @@
                             <input type="text" class="form-control" id="salary" name="salary" value="{{ isset($employee) ? $employee->salary : '' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="image">Image</label>
-                            <input type="file" class="form-control" id="image" name="image" value="{{ isset($employee) ? $employee->image : '' }}" required>
+                            <label for="image_id">Image</label>
+                            <input type="file" class="form-control" id="image_id" name="image_id" value="{{ isset($employee) ? $employee->image_id : '' }}" required>
                         </div>
                         <br>
                         <button type="submit" class="btn btn-primary" style="background-color: gold; color: black">
