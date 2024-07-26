@@ -5,6 +5,7 @@ use App\Http\Controllers\view_controller;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LaravelMailSender;
 use App\Http\Controllers\uploadFile;
+use App\Http\Controllers\TraitController;
 use App\Models\Employee;
 use App\Models\attachment;
 
@@ -47,11 +48,14 @@ Route::group(['prefix' => '/laravel'], function () {
 Route::view('upload','upload');
 Route::post('upload',[uploadFile::class,'index']);
 
+Route::get('/trait', [TraitController::class, 'create'])->name('trait.create');
+Route::post('/trait', [TraitController::class, 'store'])->name('trait.store');
+
 // returns the home page with all Employee
 Route::get('/crud', [EmployeeController::class, 'index'])->name('Employees.index');
 
 // returns the form for adding or editing an Employee
-// Route::get('/crud/form/{employee?}', [EmployeeController::class, 'form'])->name('Employees.form');
+Route::get('/crud/form/{employee?}', [EmployeeController::class, 'form'])->name('Employees.form');
 
 // adds a post to the database
 Route::post('/crud', [EmployeeController::class, 'store'])->name('Employees.store');
@@ -62,27 +66,27 @@ Route::put('/crud/{employee}', [EmployeeController::class, 'update'])->name('Emp
 // deletes an Employee
 Route::delete('/crud/{employee}', [EmployeeController::class, 'destroy'])->name('Employees.destroy');
 
-Route::get('/crud/form/{employee?}',function(Request $request){
-    $request->validate([
-        'name' => 'required|max:255',
-        'mail' => 'required|email|unique:employees,mail',
-        'age' => 'required|integer',
-        'role' => 'required|max:255',
-        'salary' => 'required|numeric',
-        'image_id' => 'required|image|mimes:jpg,png,jpeg,gif',
-      ]);
-      if ($request->hasFile('image_id')) {
-        $imagePath = $request->file('image_id')->store('user-images', 'public'); // Store file and get path
-      } else {
-        $imagePath = null;
-      }
-      $employeeData = $request->all();
+// Route::get('/crud/form/{employee?}',function(Request $request){
+//     $request->validate([
+//         'name' => 'required|max:255',
+//         'mail' => 'required|email|unique:employees,mail',
+//         'age' => 'required|integer',
+//         'role' => 'required|max:255',
+//         'salary' => 'required|numeric',
+//         'image_id' => 'required|image|mimes:jpg,png,jpeg,gif',
+//       ]);
+//       if ($request->hasFile('image_id')) {
+//         $imagePath = $request->file('image_id')->store('user-images', 'public'); // Store file and get path
+//       } else {
+//         $imagePath = null;
+//       }
+//       $employeeData = $request->all();
 
-      attachment::updateOrCreate(
-        ['storage_path'=>'local','image_path'=>$imagePath]
-    );
+//       attachment::updateOrCreate(
+//         ['storage_path'=>'local','image_path'=>$imagePath]
+//     );
     
-    Employee::updateOrCreate(
-        ['name' => $employeeData['name'],'mail'=>$employeeData['mail'],'age' => $employeeData['age'],'role'=>$employeeData['role'],'salary'=>$employeeData['salary'],'image_id'=>'']
-    );
-});
+//     Employee::updateOrCreate(
+//         ['name' => $employeeData['name'],'mail'=>$employeeData['mail'],'age' => $employeeData['age'],'role'=>$employeeData['role'],'salary'=>$employeeData['salary'],'image_id'=>$attachment->id]
+//     );
+// });
